@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+ <record id="act_window_book_request" model="ir.actions.act_window" >
+  <field name="name">Book Requests</field>
+  <field name="res_model">book.request</field>
+  <field name="view_mode">tree,form</field>
+ </record>
+ 
+ <menuitem id="contact_menu_book_reuests"
+     name="Book Requests"
+     action="act_window_book_request"
+     parent="contacts.menu_contacts"
+     sequence="2"       
+ />
+ 
+ <record id="book_request_view_tree" model="ir.ui.view">
+  <field name="name">book.request.view.tree</field>
+  <field name="model">book.request</field>
+  <field name="arch" type="xml">
+   <tree>
+    <field name="borrower_id" />
+    <field name="book_id" />
+    <field name="borrow_from" />
+    <field name="borrow_to" />
+    <field name="state" /> 
+   </tree>
+  </field>
+ </record> 
+ <record id="book_request_view_form" model="ir.ui.view">
+  <field name="name">book.request.view.form</field>
+  <field name="model">book.request</field>
+  <field name="arch" type="xml">
+   <form>
+    <header>
+     <button string="Borrowed" type="object" name="make_borrowed" attrs="{'invisible':[('state','!=',False)]}"/>
+     <button string="Returned" type="object" name="make_returned" attrs="{'invisible':[('state','!=','borrowed')]}" />
+     <button string="Lost" type="object" name="make_lost" attrs="{'invisible':[('state','!=','borrowed')]}" />
+     <field name="state" widget="statusbar" />
+    </header>
+    <sheet>
+     <group>
+      <group>
+       <field name="borrower_id" />
+       <field name="book_id" />
+      </group>
+      <group>
+       <field name="borrow_from" />
+       <field name="borrow_to" />
+      </group>
+     </group>
+    </sheet>
+   </form>
+  </field>
+ </record>
+
+</odoo>
